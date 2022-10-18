@@ -1,8 +1,12 @@
 package com.collegecapstoneteam1.cookingapp.data.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+
+@Parcelize
 data class Recipe(
     @SerializedName("ATT_FILE_NO_MAIN")
     val aTTFILENOMAIN: String,
@@ -112,4 +116,157 @@ data class Recipe(
     val rCPSEQ: String,
     @SerializedName("RCP_WAY2")
     val rCPWAY2: String
-)
+) : Parcelable {
+    fun getDetailList() : List<Detail>{
+        val size = getDetailSize()
+        val list = mutableListOf<Detail>()
+
+        if (size == 0){
+            return list
+        }
+
+        list.add(Detail(mANUAL01,mANUALIMG01))
+        if (size == 1){
+            return list
+        }
+
+        list.add(Detail(mANUAL02,mANUALIMG02))
+        if (size == 2){
+            return list
+        }
+
+        list.add(Detail(mANUAL03,mANUALIMG03))
+        if (size == 3){
+            return list
+        }
+
+        list.add(Detail(mANUAL04,mANUALIMG04))
+        if (size == 4){
+            return list
+        }
+
+        list.add(Detail(mANUAL05,mANUALIMG05))
+        if (size == 5){
+            return list
+        }
+
+        list.add(Detail(mANUAL06,mANUALIMG06))
+        if (size == 6){
+            return list
+        }
+
+        list.add(Detail(mANUAL07,mANUALIMG07))
+        if (size == 7){
+            return list
+        }
+
+        list.add(Detail(mANUAL08,mANUALIMG08))
+        if (size == 8){
+            return list
+        }
+
+        list.add(Detail(mANUAL09,mANUALIMG09))
+        if (size == 9){
+            return list
+        }
+
+        list.add(Detail(mANUAL10,mANUALIMG10))
+        if (size == 10){
+            return list
+        }
+
+        list.add(Detail(mANUAL11,mANUALIMG11))
+        if (size == 11){
+            return list
+        }
+
+        list.add(Detail(mANUAL12,mANUALIMG12))
+        if (size == 12){
+            return list
+        }
+
+        list.add(Detail(mANUAL13,mANUALIMG13))
+        if (size == 13){
+            return list
+        }
+
+        list.add(Detail(mANUAL14,mANUALIMG14))
+        if (size == 14){
+            return list
+        }
+
+        list.add(Detail(mANUAL15,mANUALIMG15))
+        if (size == 15){
+            return list
+        }
+
+        list.add(Detail(mANUAL16,mANUALIMG16))
+        if (size == 16){
+            return list
+        }
+
+        list.add(Detail(mANUAL17,mANUALIMG17))
+        if (size == 17){
+            return list
+        }
+
+        list.add(Detail(mANUAL18,mANUALIMG18))
+        if (size == 18){
+            return list
+        }
+
+
+        list.add(Detail(mANUAL19,mANUALIMG19))
+        if (size == 19){
+            return list
+        }
+
+        list.add(Detail(mANUAL20,mANUALIMG20))
+        return list
+    }
+    fun getDetailSize() : Int {
+        if (mANUAL01.isNullOrEmpty()){
+            return 0
+        } else if (mANUAL02.isNullOrEmpty()){
+            return 1
+        } else if (mANUAL03.isNullOrEmpty()){
+            return 2
+        } else if (mANUAL04.isNullOrEmpty()){
+            return 3
+        } else if (mANUAL05.isNullOrEmpty()){
+            return 4
+        } else if (mANUAL06.isNullOrEmpty()){
+            return 5
+        } else if (mANUAL07.isNullOrEmpty()){
+            return 6
+        } else if (mANUAL08.isNullOrEmpty()){
+            return 7
+        } else if (mANUAL09.isNullOrEmpty()){
+            return 8
+        } else if (mANUAL10.isNullOrEmpty()){
+            return 9
+        } else if (mANUAL11.isNullOrEmpty()){
+            return 10
+        } else if (mANUAL12.isNullOrEmpty()){
+            return 11
+        } else if (mANUAL13.isNullOrEmpty()){
+            return 12
+        } else if (mANUAL14.isNullOrEmpty()){
+            return 13
+        } else if (mANUAL15.isNullOrEmpty()){
+            return 14
+        } else if (mANUAL16.isNullOrEmpty()){
+            return 15
+        } else if (mANUAL17.isNullOrEmpty()){
+            return 16
+        } else if (mANUAL18.isNullOrEmpty()){
+            return 17
+        } else if (mANUAL19.isNullOrEmpty()){
+            return 18
+        } else if (mANUAL20.isNullOrEmpty()){
+            return 19
+        } else{
+            return 20
+        }
+    }
+}

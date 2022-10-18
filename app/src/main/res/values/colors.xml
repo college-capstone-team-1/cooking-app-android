@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="main_color_1">#F8F0D5</color>
+    <color name="main_color_2">#C3CFB6</color>
+    <color name="main_color_3">#92AE9D</color>
+    <color name="main_color_4">#678C88</color>
+    <color name="main_color_5">#466A72</color>
+    <color name="main_color_6">#2F4858</color>
 </resources>

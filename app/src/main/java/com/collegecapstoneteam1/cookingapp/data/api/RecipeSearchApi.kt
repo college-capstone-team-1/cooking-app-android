@@ -15,17 +15,13 @@ interface RecipeSearchApi {
         @Path("API_KEY") api_key : String = API_KEY,
     ): Response<SearchResponse>
 
-
-
-    @GET("/api/{API_KEY}/COOKRCP01/json/{startIdx}/{endIdx}/RCP_NM={RCP_NM}")
+    @GET("/api/{API_KEY}/COOKRCP01/json/{startIdx}/{endIdx}")
     suspend fun searchRecipes(
         @Path("startIdx") startIdx: Int,
         @Path("endIdx") endIdx: Int,
-        @Path("RCP_NM") recipeName: String,
+        @Query("RCP_NM") recipeName: String,
+        @Query("RCP_PARTS_DTLS") recipeDetail: String,
         @Path("API_KEY") api_key : String = API_KEY,
     ): Response<SearchResponse>
-
-
-
 
 }

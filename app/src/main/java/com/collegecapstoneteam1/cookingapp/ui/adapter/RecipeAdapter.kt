@@ -5,9 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +13,7 @@ import com.collegecapstoneteam1.cookingapp.data.model.Recipe
 import com.collegecapstoneteam1.cookingapp.databinding.ItemRecipePreviewBinding
 
 
-class RecipeAdapter : PagingDataAdapter<Recipe, RecipeAdapter.RecipeViewHolder>(RecipeDiffCallback) {
+class RecipeAdapter : ListAdapter<Recipe, RecipeAdapter.RecipeViewHolder>(BookDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         return RecipeViewHolder(
@@ -25,8 +22,8 @@ class RecipeAdapter : PagingDataAdapter<Recipe, RecipeAdapter.RecipeViewHolder>(
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        val recipe = getItem(position)
-        holder.bind(recipe!!)
+        val recipe = currentList[position]
+        holder.bind(recipe)
     }
 
     interface OnItemClickListener {
@@ -42,22 +39,18 @@ class RecipeAdapter : PagingDataAdapter<Recipe, RecipeAdapter.RecipeViewHolder>(
         private val binding: ItemRecipePreviewBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(recipe: Recipe) {
-            with(binding){
-                cookingItem = recipe
+            itemView.apply {
+                Glide.with(this)
+                    .load(recipe.aTTFILENOMK)
+                    .into(binding.recipeImage)
+                //binding.recipeImage.load(recipe.aTTFILENOMK)
+                binding.recipeTitle.text = recipe.rCPNM
+                binding.recipeCategory.text = recipe.rCPPAT2
             }
-
-//            itemView.apply {
-//                Glide.with(this)
-//                    .load(recipe.aTTFILENOMK)
-//                    .into(binding.recipeImage)
-//                //binding.recipeImage.load(recipe.aTTFILENOMK)
-//                binding.recipeTitle.text = recipe.rCPNM
-//                binding.recipeCategory.text = recipe.rCPPAT2
-//            }
 
             val pos = absoluteAdapterPosition
             itemView.setOnClickListener {
-                Log.d(TAG, "bind: $pos")
+                Log.d("TAG", "bind: $pos")
             }
             if (pos != RecyclerView.NO_POSITION) {
                 itemView.setOnClickListener {
@@ -68,17 +61,7 @@ class RecipeAdapter : PagingDataAdapter<Recipe, RecipeAdapter.RecipeViewHolder>(
     }
 
     companion object {
-        @JvmStatic
-        @BindingAdapter("cookingImage")
-        fun loadCookingImage(view: ImageView, imageUrl: String) {
-            Glide.with(view.context)
-                .load(imageUrl)
-                .into(view)
-        }
-
-        private const val TAG = "RecipeAdapter"
-
-        private val RecipeDiffCallback = object : DiffUtil.ItemCallback<Recipe>() {
+        private val BookDiffCallback = object : DiffUtil.ItemCallback<Recipe>() {
             override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
                 return oldItem.rCPSEQ == newItem.rCPSEQ
             }

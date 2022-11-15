@@ -9,6 +9,7 @@ import com.collegecapstoneteam1.cookingapp.data.model.Recipe
 import com.collegecapstoneteam1.cookingapp.data.model.SearchResponse
 import com.collegecapstoneteam1.cookingapp.ui.paging.RecipePagingSource
 import com.collegecapstoneteam1.cookingapp.util.Constants.PAGING_SIZE
+import com.example.myapplication.test.ServerResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
@@ -31,6 +32,10 @@ class RecipeRepositoryImpl(private val db:RecipeDatabase) : RecipeRepository {
             ),
             pagingSourceFactory = pagingSourceFactory
         ).flow
+    }
+
+    override suspend fun searchSeverRecipes(page: Int, size: Int): Response<ServerResponse> {
+        return RetrofitInstance.apiServer.searchSeverRecipes(page,size)
     }
 
     // Room

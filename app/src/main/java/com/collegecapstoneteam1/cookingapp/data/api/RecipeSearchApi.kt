@@ -2,6 +2,7 @@ package com.collegecapstoneteam1.cookingapp.data.api
 
 import com.collegecapstoneteam1.cookingapp.data.model.SearchResponse
 import com.collegecapstoneteam1.cookingapp.util.Constants.API_KEY
+import com.example.myapplication.test.ServerResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -15,8 +16,6 @@ interface RecipeSearchApi {
         @Path("API_KEY") api_key : String = API_KEY,
     ): Response<SearchResponse>
 
-
-
     @GET("/api/{API_KEY}/COOKRCP01/json/{startIdx}/{endIdx}/RCP_NM={RCP_NM}")
     suspend fun searchRecipes(
         @Path("startIdx") startIdx: Int,
@@ -24,8 +23,4 @@ interface RecipeSearchApi {
         @Path("RCP_NM") recipeName: String,
         @Path("API_KEY") api_key : String = API_KEY,
     ): Response<SearchResponse>
-
-
-
-
 }

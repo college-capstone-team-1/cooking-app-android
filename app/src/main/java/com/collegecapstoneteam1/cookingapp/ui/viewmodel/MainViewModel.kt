@@ -59,12 +59,30 @@ class MainViewModel(
             Log.d(TAG, response.message())
         }
     }
+
     private val _serchPagingResult = MutableStateFlow<PagingData<Recipe>>(PagingData.empty())
     val searchPagingResult: StateFlow<PagingData<Recipe>> = _serchPagingResult.asStateFlow()
 
 
+    fun searchServerRecipes(
+        page: Int,
+        size: Int
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response =
+            recipeRepository.searchSeverRecipes(page, size)
+        if (response.isSuccessful) {
+            response.body()?.let { body ->
+                Log.d(TAG, "searchServerRecipes: ${body}")
+            }
+        } else {
+            Log.d(TAG, "searchRecipes: response.isNotSuccessful")
+            Log.d(TAG, response.message())
+        }
+    }
+
+
     //레시피 이름으로 검색하기 위한 페이징 뷰모델
-    fun searchCookingsPaging(RCP_NM: String){
+    fun searchCookingsPaging(RCP_NM: String) {
         viewModelScope.launch {
             recipeRepository.searchcookingPaging(RCP_NM)
                 .cachedIn(viewModelScope)

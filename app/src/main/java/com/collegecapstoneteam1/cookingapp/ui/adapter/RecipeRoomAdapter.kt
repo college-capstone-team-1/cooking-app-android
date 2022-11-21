@@ -71,7 +71,7 @@ class RecipeRoomAdapter : ListAdapter<Recipe, RecipeRoomAdapter.RecipeViewHolder
 
         private val RecipeDiffCallback = object : DiffUtil.ItemCallback<Recipe>() {
             override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
-                return oldItem.rCPSEQ == newItem.rCPSEQ
+                return oldItem.rcpSeq == newItem.rcpSeq
             }
 
             override fun areContentsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {

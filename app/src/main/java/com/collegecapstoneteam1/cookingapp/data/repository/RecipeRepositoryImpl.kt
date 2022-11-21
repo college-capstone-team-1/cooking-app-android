@@ -12,17 +12,37 @@ import com.collegecapstoneteam1.cookingapp.util.Constants.PAGING_SIZE
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
-class RecipeRepositoryImpl(private val db:RecipeDatabase) : RecipeRepository {
-    override suspend fun searchRecipesList(startIdx: Int, endIdx: Int): Response<SearchResponse> {
-        return RetrofitInstance.api.searchRecipesList(startIdx, endIdx)
+class RecipeRepositoryImpl(private val db: RecipeDatabase) : RecipeRepository {
+    override suspend fun searchRecipesList(
+        page: Int,
+        size: Int,
+    ): Response<SearchResponse> {
+        return RetrofitInstance.api.searchRecipesList(page, size)
     }
 
-    override suspend fun searchRecipes(startIdx: Int, endIdx: Int, recipeName: String): Response<SearchResponse> {
-        return RetrofitInstance.api.searchRecipesList(startIdx, endIdx, recipeName)
+    override suspend fun searchRecipesList(
+        page: Int,
+        size: Int,
+        name: String,
+        detail: String,
+        part: String,
+        way: String,
+    ): Response<SearchResponse> {
+        return RetrofitInstance.api.searchRecipesList(page, size, name, detail, part, way)
     }
 
-    override fun searchcookingPaging(RCP_NM: String): Flow<PagingData<Recipe>> {
-        val pagingSourceFactory = { RecipePagingSource(RCP_NM) }
+    override suspend fun searchRecipe(seq: Int): Response<SearchResponse> {
+        return RetrofitInstance.api.searchRecipe(seq)
+    }
+
+
+    override fun searchRecipePaging(
+        name: String,
+        detail: String,
+        part: String,
+        way: String,
+    ): Flow<PagingData<Recipe>> {
+        val pagingSourceFactory = { RecipePagingSource(name, detail, part, way) }
 
         return Pager(
             config = PagingConfig(
@@ -45,6 +65,10 @@ class RecipeRepositoryImpl(private val db:RecipeDatabase) : RecipeRepository {
 
     override fun getFavoriteRecipes(): Flow<List<Recipe>> {
         return db.recipeDao().getFavoriteRecipes()
+    }
+
+    override fun getFavoriteRecipesWithName(name: String): Flow<List<Recipe>> {
+        return db.recipeDao().getFavoriteRecipesWithName(name)
     }
 
 

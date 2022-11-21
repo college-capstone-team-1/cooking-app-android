@@ -9,7 +9,10 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class RecipePagingSource(
-    private val RCP_NM: String
+    private val name: String = "",
+    private val detail: String = "",
+    private val part: String = "",
+    private val way: String = "",
 ) : PagingSource<Int, Recipe>() {
     override fun getRefreshKey(state: PagingState<Int, Recipe>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -22,16 +25,15 @@ class RecipePagingSource(
         return try {
 
             val pageNumber = params.key ?: STARTING_PAGE_INDEX
-            val response = api.searchRecipes(pageNumber, pageNumber+5, RCP_NM)
+            val response = api.searchRecipesList(pageNumber, 5, name, detail, part, way)
 
-            val data = response.body()?.cOOKRCP01?.recipes
+            val data = response.body()?.recipes
 
-
-            val prevKey = if (pageNumber == STARTING_PAGE_INDEX) null else pageNumber -1
-            var nextKey = if(pageNumber > 999){
+            val prevKey = if (pageNumber == STARTING_PAGE_INDEX) null else pageNumber - 1
+            var nextKey = if (pageNumber > 999) {
                 null
             } else {
-                pageNumber + 6
+                pageNumber + 1
             }
 
             if (data == null) {
@@ -46,9 +48,9 @@ class RecipePagingSource(
             )
         } catch (exception: IOException) {
             LoadResult.Error(exception)
-        }catch (exception: HttpException){
+        } catch (exception: HttpException) {
             LoadResult.Error(exception)
-        }catch (exception: NullPointerException){
+        } catch (exception: NullPointerException) {
             LoadResult.Error(exception)
         }
     }

@@ -12,6 +12,9 @@ interface RecipeDao {
     @Delete
     suspend fun deleteRecipe(recipe: Recipe)
 
-    @Query("SELECT * FROM recipes Order By rCPSEQ")
+    @Query("SELECT * FROM recipes Order By rcpSeq")
     fun getFavoriteRecipes(): Flow<List<Recipe>>
+
+    @Query("SELECT * FROM recipes WHERE rcpNm = :name")
+    fun getFavoriteRecipesWithName(name: String): Flow<List<Recipe>>
 }

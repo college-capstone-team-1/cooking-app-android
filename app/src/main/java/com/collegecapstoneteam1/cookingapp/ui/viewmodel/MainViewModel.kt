@@ -19,24 +19,17 @@ class MainViewModel(
 ) : ViewModel() {
     private val _searchResult = MutableLiveData<SearchResponse>()
     val searchResult: LiveData<SearchResponse> get() = _searchResult
-    private var startNum = 1
-
-
-    fun addNum() {
-        startNum += 5
-    }
-
-    fun decreaseNum() {
-        if (startNum != 1) startNum -= 5
-    }
 
     fun searchRecipes(
-        startIdx: Int,
-        endIdx: Int,
-        recipeName: String
+        page: Int,
+        size: Int,
+        name: String = "",//이름
+        detail: String = "",//재료 상세
+        part: String = "",//음식 구분
+        way: String = "",//조리방식
     ) = viewModelScope.launch(Dispatchers.IO) {
         val response =
-            recipeRepository.searchRecipes(startIdx, endIdx, recipeName)
+            recipeRepository.searchRecipesList(page, size, name, detail, part, way)
         if (response.isSuccessful) {
             response.body()?.let { body ->
                 _searchResult.postValue(body)
@@ -49,7 +42,8 @@ class MainViewModel(
 
     fun searchRecipesList(
     ) = viewModelScope.launch(Dispatchers.IO) {
-        val response = recipeRepository.searchRecipesList(startNum, startNum + 4)
+        val response =
+            recipeRepository.searchRecipesList(1,10)
         if (response.isSuccessful) {
             response.body()?.let { body ->
                 _searchResult.postValue(body)
@@ -64,9 +58,14 @@ class MainViewModel(
 
 
     //레시피 이름으로 검색하기 위한 페이징 뷰모델
-    fun searchCookingsPaging(RCP_NM: String){
+    fun searchCookingsPaging(
+        name: String = "",//이름
+        detail: String = "",//재료 상세
+        part: String = "",//음식 구분
+        way: String = "",//조리방식
+    ){
         viewModelScope.launch {
-            recipeRepository.searchcookingPaging(RCP_NM)
+            recipeRepository.searchRecipePaging(name, detail, part, way)
                 .cachedIn(viewModelScope)
                 .collect {
                     _serchPagingResult.value = it
@@ -83,6 +82,8 @@ class MainViewModel(
     fun deleteRecipe(recipe: Recipe) = viewModelScope.launch(Dispatchers.IO) {
         recipeRepository.deleteRecipe(recipe)
     }
+
+    var name = ""
 
     val favoriteRecipes: StateFlow<List<Recipe>> = recipeRepository.getFavoriteRecipes()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), listOf())

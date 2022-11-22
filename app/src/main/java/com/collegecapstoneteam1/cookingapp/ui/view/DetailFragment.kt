@@ -50,11 +50,11 @@ class DetailFragment : Fragment() {
 
         viewModel = (activity as MainActivity).viewModel
 
-        binding.tvRecipeTitle.text = recipe.rCPNM
-        binding.tvRecipePart.text = recipe.rCPPARTSDTLS
+        binding.tvRecipeTitle.text = recipe.rcpNm
+        binding.tvRecipePart.text = recipe.rcpPartsDtls
 
         Glide.with(view.context)
-            .load(recipe.aTTFILENOMAIN)
+            .load(recipe.attFileNoMain)
             .into(binding.ivRecipeMainImg)
 
         setupRecyclerView()

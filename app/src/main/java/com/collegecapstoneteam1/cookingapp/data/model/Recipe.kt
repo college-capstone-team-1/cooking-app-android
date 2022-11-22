@@ -12,124 +12,69 @@ import retrofit2.http.GET
 @Parcelize
 @Entity(tableName = "recipes")
 data class Recipe(
-    @SerializedName("ATT_FILE_NO_MAIN")
-    val aTTFILENOMAIN: String,
-    @SerializedName("ATT_FILE_NO_MK")
-    val aTTFILENOMK: String,
-    @SerializedName("HASH_TAG")
-    val hASHTAG: String,
-    @SerializedName("INFO_CAR")
-    val iNFOCAR: String,
-    @SerializedName("INFO_ENG")
-    val iNFOENG: String,
-    @SerializedName("INFO_FAT")
-    val iNFOFAT: String,
-    @SerializedName("INFO_NA")
-    val iNFONA: String,
-    @SerializedName("INFO_PRO")
-    val iNFOPRO: String,
-    @SerializedName("INFO_WGT")
-    val iNFOWGT: String,
+    val attFileNoMain: String,//이미지경로(소)
+    val attFileNoMk: String,//이미지경로(대)
+    val hashTag: String,//해쉬태그
+    val id: Int, //서버에서 임으로 할당
+    val infoCar: Double,//탄수화물
+    val infoEng: Double,//열량
+    val infoFat: Double,//지방
+    val infoNa: Double,//나트륨
+    val infoPro: Double,//단백질
+    val infoWgt: Double,//중량(1인분)
 
     // MANUAL_TEXT
-
-    @SerializedName("MANUAL01")
-    val mANUAL01: String,
-    @SerializedName("MANUAL02")
-    val mANUAL02: String,
-    @SerializedName("MANUAL03")
-    val mANUAL03: String,
-    @SerializedName("MANUAL04")
-    val mANUAL04: String,
-    @SerializedName("MANUAL05")
-    val mANUAL05: String,
-    @SerializedName("MANUAL06")
-    val mANUAL06: String,
-    @SerializedName("MANUAL07")
-    val mANUAL07: String,
-    @SerializedName("MANUAL08")
-    val mANUAL08: String,
-    @SerializedName("MANUAL09")
-    val mANUAL09: String,
-    @SerializedName("MANUAL10")
-    val mANUAL10: String,
-    @SerializedName("MANUAL11")
-    val mANUAL11: String,
-    @SerializedName("MANUAL12")
-    val mANUAL12: String,
-    @SerializedName("MANUAL13")
-    val mANUAL13: String,
-    @SerializedName("MANUAL14")
-    val mANUAL14: String,
-    @SerializedName("MANUAL15")
-    val mANUAL15: String,
-    @SerializedName("MANUAL16")
-    val mANUAL16: String,
-    @SerializedName("MANUAL17")
-    val mANUAL17: String,
-    @SerializedName("MANUAL18")
-    val mANUAL18: String,
-    @SerializedName("MANUAL19")
-    val mANUAL19: String,
-    @SerializedName("MANUAL20")
-    val mANUAL20: String,
+    val manual01: String,
+    val manual02: String,
+    val manual03: String,
+    val manual04: String,
+    val manual05: String,
+    val manual06: String,
+    val manual07: String,
+    val manual08: String,
+    val manual09: String,
+    val manual10: String,
+    val manual11: String,
+    val manual12: String,
+    val manual13: String,
+    val manual14: String,
+    val manual15: String,
+    val manual16: String,
+    val manual17: String,
+    val manual18: String,
+    val manual19: String,
+    val manual20: String,
 
     // MANUAL_IMG
+    val manualImg01: String,
+    val manualImg02: String,
+    val manualImg03: String,
+    val manualImg04: String,
+    val manualImg05: String,
+    val manualImg06: String,
+    val manualImg07: String,
+    val manualImg08: String,
+    val manualImg09: String,
+    val manualImg10: String,
+    val manualImg11: String,
+    val manualImg12: String,
+    val manualImg13: String,
+    val manualImg14: String,
+    val manualImg15: String,
+    val manualImg16: String,
+    val manualImg17: String,
+    val manualImg18: String,
+    val manualImg19: String,
+    val manualImg20: String,
 
-    @SerializedName("MANUAL_IMG01")
-    val mANUALIMG01: String,
-    @SerializedName("MANUAL_IMG02")
-    val mANUALIMG02: String,
-    @SerializedName("MANUAL_IMG03")
-    val mANUALIMG03: String,
-    @SerializedName("MANUAL_IMG04")
-    val mANUALIMG04: String,
-    @SerializedName("MANUAL_IMG05")
-    val mANUALIMG05: String,
-    @SerializedName("MANUAL_IMG06")
-    val mANUALIMG06: String,
-    @SerializedName("MANUAL_IMG07")
-    val mANUALIMG07: String,
-    @SerializedName("MANUAL_IMG08")
-    val mANUALIMG08: String,
-    @SerializedName("MANUAL_IMG09")
-    val mANUALIMG09: String,
-    @SerializedName("MANUAL_IMG10")
-    val mANUALIMG10: String,
-    @SerializedName("MANUAL_IMG11")
-    val mANUALIMG11: String,
-    @SerializedName("MANUAL_IMG12")
-    val mANUALIMG12: String,
-    @SerializedName("MANUAL_IMG13")
-    val mANUALIMG13: String,
-    @SerializedName("MANUAL_IMG14")
-    val mANUALIMG14: String,
-    @SerializedName("MANUAL_IMG15")
-    val mANUALIMG15: String,
-    @SerializedName("MANUAL_IMG16")
-    val mANUALIMG16: String,
-    @SerializedName("MANUAL_IMG17")
-    val mANUALIMG17: String,
-    @SerializedName("MANUAL_IMG18")
-    val mANUALIMG18: String,
-    @SerializedName("MANUAL_IMG19")
-    val mANUALIMG19: String,
-    @SerializedName("MANUAL_IMG20")
-    val mANUALIMG20: String,
-
-    @SerializedName("RCP_NM")
-    val rCPNM: String,
-    @SerializedName("RCP_PARTS_DTLS")
-    val rCPPARTSDTLS: String,
-    @SerializedName("RCP_PAT2")
-    val rCPPAT2: String,
+    val rcpNm: String,//메뉴명
+    val rcpPartsDtls: String,//재료정보
+    val rcpPat2: String,//요리종류
 
     @PrimaryKey(autoGenerate = false)
-    @SerializedName("RCP_SEQ")
-    val rCPSEQ: String,
+    val rcpSeq: Int,//api_일련번호
 
-    @SerializedName("RCP_WAY2")
-    val rCPWAY2: String,
+    val rcpWay2: String//조리방법
 ) : Parcelable {
     fun getDetailList() : List<Detail>{
         val size = getDetailSize()
@@ -139,145 +84,145 @@ data class Recipe(
             return list
         }
 
-        list.add(Detail(mANUAL01,mANUALIMG01))
+        list.add(Detail(manual01,manualImg01))
         if (size == 1){
             return list
         }
 
-        list.add(Detail(mANUAL02,mANUALIMG02))
+        list.add(Detail(manual02,manualImg02))
         if (size == 2){
             return list
         }
 
-        list.add(Detail(mANUAL03,mANUALIMG03))
+        list.add(Detail(manual03,manualImg03))
         if (size == 3){
             return list
         }
 
-        list.add(Detail(mANUAL04,mANUALIMG04))
+        list.add(Detail(manual04,manualImg04))
         if (size == 4){
             return list
         }
 
-        list.add(Detail(mANUAL05,mANUALIMG05))
+        list.add(Detail(manual05,manualImg05))
         if (size == 5){
             return list
         }
 
-        list.add(Detail(mANUAL06,mANUALIMG06))
+        list.add(Detail(manual06,manualImg06))
         if (size == 6){
             return list
         }
 
-        list.add(Detail(mANUAL07,mANUALIMG07))
+        list.add(Detail(manual07,manualImg07))
         if (size == 7){
             return list
         }
 
-        list.add(Detail(mANUAL08,mANUALIMG08))
+        list.add(Detail(manual08,manualImg08))
         if (size == 8){
             return list
         }
 
-        list.add(Detail(mANUAL09,mANUALIMG09))
+        list.add(Detail(manual09,manualImg09))
         if (size == 9){
             return list
         }
 
-        list.add(Detail(mANUAL10,mANUALIMG10))
+        list.add(Detail(manual10,manualImg10))
         if (size == 10){
             return list
         }
 
-        list.add(Detail(mANUAL11,mANUALIMG11))
+        list.add(Detail(manual11,manualImg11))
         if (size == 11){
             return list
         }
 
-        list.add(Detail(mANUAL12,mANUALIMG12))
+        list.add(Detail(manual12,manualImg12))
         if (size == 12){
             return list
         }
 
-        list.add(Detail(mANUAL13,mANUALIMG13))
+        list.add(Detail(manual13,manualImg13))
         if (size == 13){
             return list
         }
 
-        list.add(Detail(mANUAL14,mANUALIMG14))
+        list.add(Detail(manual14,manualImg14))
         if (size == 14){
             return list
         }
 
-        list.add(Detail(mANUAL15,mANUALIMG15))
+        list.add(Detail(manual15,manualImg15))
         if (size == 15){
             return list
         }
 
-        list.add(Detail(mANUAL16,mANUALIMG16))
+        list.add(Detail(manual16,manualImg16))
         if (size == 16){
             return list
         }
 
-        list.add(Detail(mANUAL17,mANUALIMG17))
+        list.add(Detail(manual17,manualImg17))
         if (size == 17){
             return list
         }
 
-        list.add(Detail(mANUAL18,mANUALIMG18))
+        list.add(Detail(manual18,manualImg18))
         if (size == 18){
             return list
         }
 
 
-        list.add(Detail(mANUAL19,mANUALIMG19))
+        list.add(Detail(manual19,manualImg19))
         if (size == 19){
             return list
         }
 
-        list.add(Detail(mANUAL20,mANUALIMG20))
+        list.add(Detail(manual20,manualImg20))
         return list
     }
     fun getDetailSize() : Int {
-        if (mANUAL01.isNullOrEmpty()){
+        if (manual01.isNullOrEmpty()){
             return 0
-        } else if (mANUAL02.isNullOrEmpty()){
+        } else if (manual02.isNullOrEmpty()){
             return 1
-        } else if (mANUAL03.isNullOrEmpty()){
+        } else if (manual03.isNullOrEmpty()){
             return 2
-        } else if (mANUAL04.isNullOrEmpty()){
+        } else if (manual04.isNullOrEmpty()){
             return 3
-        } else if (mANUAL05.isNullOrEmpty()){
+        } else if (manual05.isNullOrEmpty()){
             return 4
-        } else if (mANUAL06.isNullOrEmpty()){
+        } else if (manual06.isNullOrEmpty()){
             return 5
-        } else if (mANUAL07.isNullOrEmpty()){
+        } else if (manual07.isNullOrEmpty()){
             return 6
-        } else if (mANUAL08.isNullOrEmpty()){
+        } else if (manual08.isNullOrEmpty()){
             return 7
-        } else if (mANUAL09.isNullOrEmpty()){
+        } else if (manual09.isNullOrEmpty()){
             return 8
-        } else if (mANUAL10.isNullOrEmpty()){
+        } else if (manual10.isNullOrEmpty()){
             return 9
-        } else if (mANUAL11.isNullOrEmpty()){
+        } else if (manual11.isNullOrEmpty()){
             return 10
-        } else if (mANUAL12.isNullOrEmpty()){
+        } else if (manual12.isNullOrEmpty()){
             return 11
-        } else if (mANUAL13.isNullOrEmpty()){
+        } else if (manual13.isNullOrEmpty()){
             return 12
-        } else if (mANUAL14.isNullOrEmpty()){
+        } else if (manual14.isNullOrEmpty()){
             return 13
-        } else if (mANUAL15.isNullOrEmpty()){
+        } else if (manual15.isNullOrEmpty()){
             return 14
-        } else if (mANUAL16.isNullOrEmpty()){
+        } else if (manual16.isNullOrEmpty()){
             return 15
-        } else if (mANUAL17.isNullOrEmpty()){
+        } else if (manual17.isNullOrEmpty()){
             return 16
-        } else if (mANUAL18.isNullOrEmpty()){
+        } else if (manual18.isNullOrEmpty()){
             return 17
-        } else if (mANUAL19.isNullOrEmpty()){
+        } else if (manual19.isNullOrEmpty()){
             return 18
-        } else if (mANUAL20.isNullOrEmpty()){
+        } else if (manual20.isNullOrEmpty()){
             return 19
         } else{
             return 20

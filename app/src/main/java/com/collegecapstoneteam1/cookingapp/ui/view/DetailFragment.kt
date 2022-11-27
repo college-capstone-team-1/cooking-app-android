@@ -1,24 +1,17 @@
 package com.collegecapstoneteam1.cookingapp.ui.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.collegecapstoneteam1.cookingapp.R
-import com.collegecapstoneteam1.cookingapp.data.model.Recipe
 import com.collegecapstoneteam1.cookingapp.databinding.FragmentDetailBinding
-import com.collegecapstoneteam1.cookingapp.databinding.FragmentFavoriteBinding
-import com.collegecapstoneteam1.cookingapp.ui.adapter.RecipeAdapter
 import com.collegecapstoneteam1.cookingapp.ui.adapter.RecipeDetailAdapter
 import com.collegecapstoneteam1.cookingapp.ui.viewmodel.MainViewModel
 import com.collegecapstoneteam1.cookingapp.util.collectLatestStateFlow
@@ -60,12 +53,12 @@ class DetailFragment : Fragment() {
         setupRecyclerView()
         detailAdapter.submitList(recipe.getDetailList())
 
-        collectLatestStateFlow(viewModel.favoriteRecipes){
+        collectLatestStateFlow(viewModel.savedRecipes){
             state = it.contains(recipe)
-            binding.ivRecipeFavorite.isActivated = state
+            binding.ivRecipeSaved.isActivated = state
         }
 
-        binding.ivRecipeFavorite.setOnClickListener{
+        binding.ivRecipeSaved.setOnClickListener{
             if(state) {
                 viewModel.deleteRecipe(recipe)
                 Snackbar.make(view, "Recipe has deleted", Snackbar.LENGTH_SHORT).apply {

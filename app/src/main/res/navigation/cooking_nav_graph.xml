@@ -5,11 +5,11 @@
     app:startDestination="@id/fragment_home">
 
     <fragment
-        android:id="@+id/fragment_favorite"
-        android:name="com.collegecapstoneteam1.cookingapp.ui.view.FavoriteFragment"
-        android:label="@string/favorite" >
+        android:id="@+id/fragment_saved"
+        android:name="com.collegecapstoneteam1.cookingapp.ui.view.SavedFragment"
+        android:label="@string/saved" >
         <action
-            android:id="@+id/action_fragment_favorite_to_fragment_detail"
+            android:id="@+id/action_fragment_saved_to_fragment_detail"
             app:destination="@id/fragment_detail"
             app:enterAnim="@anim/slide_to_left_enter"
             app:exitAnim="@anim/slide_to_left_exit"

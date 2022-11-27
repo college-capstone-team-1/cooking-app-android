@@ -63,12 +63,12 @@ class RecipeRepositoryImpl(private val db: RecipeDatabase) : RecipeRepository {
         db.recipeDao().deleteRecipe(recipe)
     }
 
-    override fun getFavoriteRecipes(): Flow<List<Recipe>> {
-        return db.recipeDao().getFavoriteRecipes()
+    override fun getSavedRecipes(): Flow<List<Recipe>> {
+        return db.recipeDao().getSavedRecipes()
     }
 
-    override fun getFavoriteRecipesWithName(name: String): Flow<List<Recipe>> {
-        return db.recipeDao().getFavoriteRecipesWithName(name)
+    override fun getSavedRecipesWithName(name: String): Flow<List<Recipe>> {
+        return db.recipeDao().getSavedRecipesWithName(name)
     }
 
 

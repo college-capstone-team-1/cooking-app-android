@@ -37,7 +37,7 @@ interface RecipeRepository {
 
     suspend fun deleteRecipe(recipe: Recipe)
 
-    fun getFavoriteRecipes(): Flow<List<Recipe>>
+    fun getSavedRecipes(): Flow<List<Recipe>>
 
-    fun getFavoriteRecipesWithName(name: String): Flow<List<Recipe>>
+    fun getSavedRecipesWithName(name: String): Flow<List<Recipe>>
 }

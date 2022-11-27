@@ -85,7 +85,7 @@ class MainViewModel(
 
     var name = ""
 
-    val favoriteRecipes: StateFlow<List<Recipe>> = recipeRepository.getFavoriteRecipes()
+    val savedRecipes: StateFlow<List<Recipe>> = recipeRepository.getSavedRecipes()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), listOf())
 
 

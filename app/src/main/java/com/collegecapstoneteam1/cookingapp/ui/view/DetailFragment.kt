@@ -15,6 +15,7 @@ import com.collegecapstoneteam1.cookingapp.R
 import com.collegecapstoneteam1.cookingapp.databinding.FragmentDetailBinding
 import com.collegecapstoneteam1.cookingapp.ui.adapter.RecipeDetailAdapter
 import com.collegecapstoneteam1.cookingapp.ui.viewmodel.MainViewModel
+import com.collegecapstoneteam1.cookingapp.util.NetworkManager
 import com.collegecapstoneteam1.cookingapp.util.collectLatestStateFlow
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -22,21 +23,22 @@ import com.google.firebase.auth.FirebaseAuth
 class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
-    
+
     private val args by navArgs<DetailFragmentArgs>()
 
-    private lateinit var viewModel:MainViewModel
+    private lateinit var viewModel: MainViewModel
     private lateinit var detailAdapter: RecipeDetailAdapter
 
     private var saved_state = false
     private var favorite_state = false
 
     lateinit var auth: FirebaseAuth
+    lateinit var activity: MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
         auth = FirebaseAuth.getInstance()
@@ -47,6 +49,7 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val recipe = args.recipe
 
+        activity = getActivity() as MainActivity
         viewModel = (activity as MainActivity).viewModel
 
         binding.tvRecipeTitle.text = recipe.rcpNm
@@ -59,27 +62,29 @@ class DetailFragment : Fragment() {
         setupRecyclerView()
         detailAdapter.submitList(recipe.getDetailList())
 
-        collectLatestStateFlow(viewModel.savedRecipes){
+        collectLatestStateFlow(viewModel.savedRecipes) {
             saved_state = it.contains(recipe)
             binding.ivRecipeSaved.isActivated = saved_state
         }
 
 
-        auth.currentUser?.let { viewModel.getUsersFavorite(it.uid) }
-        viewModel.usersFavorite.observe(viewLifecycleOwner){
+        auth.currentUser?.let {
+            if (activity.checkNetWork()) viewModel.getUsersFavorite(it.uid)
+        }
+        viewModel.usersFavorite.observe(viewLifecycleOwner) {
             favorite_state = viewModel.isInFavoite(recipe.rcpSeq)
             binding.ivRecipeFavorite.isActivated = favorite_state
         }
 
-        binding.ivRecipeSaved.setOnClickListener{
-            if(saved_state) {
+        binding.ivRecipeSaved.setOnClickListener {
+            if (saved_state) {
                 viewModel.deleteRecipe(recipe)
                 Snackbar.make(view, "Recipe has deleted", Snackbar.LENGTH_SHORT).apply {
                     setAction("Undo") {
                         viewModel.saveRecipe(recipe)
                     }
                 }.show()
-            } else{
+            } else {
                 viewModel.saveRecipe(recipe)
                 Snackbar.make(view, "Recipe has Saved", Snackbar.LENGTH_SHORT).apply {
                     setAction("Undo") {
@@ -90,13 +95,15 @@ class DetailFragment : Fragment() {
         }
 
         binding.ivRecipeFavorite.setOnClickListener {
-            if (auth.currentUser == null) {
+            if (!activity.checkNetWork()) {
+                Toast.makeText(context, "네트워크를 확인해주세요", Toast.LENGTH_SHORT).show()
+            } else if (auth.currentUser == null) {
                 Toast.makeText(context, "로그인이 되어있지 않습니다 로그인을 해주세요", Toast.LENGTH_SHORT).show()
-            }else{
-                if (favorite_state){
-                    viewModel.unFavoriteRecipePost(auth.currentUser!!.uid,recipe.rcpSeq)
-                }else{
-                    viewModel.favoriteRecipePost(auth.currentUser!!.uid,recipe.rcpSeq)
+            } else {
+                if (favorite_state) {
+                    viewModel.unFavoriteRecipePost(auth.currentUser!!.uid, recipe.rcpSeq)
+                } else {
+                    viewModel.favoriteRecipePost(auth.currentUser!!.uid, recipe.rcpSeq)
                 }
             }
 
@@ -123,8 +130,8 @@ class DetailFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
-    
-    companion object{
+
+    companion object {
         private const val TAG = "DetailFragment"
     }
 }

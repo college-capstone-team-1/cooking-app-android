@@ -16,6 +16,7 @@ import com.collegecapstoneteam1.cookingapp.data.repository.RecipeRepositoryImpl
 import com.collegecapstoneteam1.cookingapp.databinding.ActivityMainBinding
 import com.collegecapstoneteam1.cookingapp.ui.viewmodel.MainViewModel
 import com.collegecapstoneteam1.cookingapp.ui.viewmodel.MainViewModelProviderFactory
+import com.collegecapstoneteam1.cookingapp.util.NetworkManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -68,6 +69,8 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
+
+    fun checkNetWork() = NetworkManager.checkNetworkState(this)
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()

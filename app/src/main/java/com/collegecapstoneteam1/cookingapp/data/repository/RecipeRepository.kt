@@ -1,12 +1,17 @@
 package com.collegecapstoneteam1.cookingapp.data.repository
 
 import androidx.paging.PagingData
+import com.collegecapstoneteam1.cookingapp.data.model.FavoriteResponse
 import com.collegecapstoneteam1.cookingapp.data.model.Recipe
 import com.collegecapstoneteam1.cookingapp.data.model.SearchResponse
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Call
 import retrofit2.Response
+import retrofit2.http.Query
 
 interface RecipeRepository {
+
+    //Search Api
     suspend fun searchRecipesList(
         page: Int,
         size: Int,
@@ -31,6 +36,21 @@ interface RecipeRepository {
         part: String = "",//음식 구분
         way: String = "",//조리방식
     ): Flow<PagingData<Recipe>>
+
+    //Favorite Api
+    suspend fun getUsersFavorite(
+        uid: String,
+    ): Response<FavoriteResponse>
+
+    suspend fun favoriteRecipePost(
+        uid: String,
+        recipeSeq : Int
+    ): Response<FavoriteResponse>
+
+    suspend fun unFavoriteRecipePost(
+        uid: String,
+        recipeSeq : Int
+    ): Response<FavoriteResponse>
 
     // Room
     suspend fun insertRecipe(recipe: Recipe)

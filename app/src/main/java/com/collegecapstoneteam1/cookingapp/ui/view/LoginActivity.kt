@@ -65,8 +65,8 @@ class LoginActivity : AppCompatActivity() {
 
             tvBack.paintFlags = Paint.UNDERLINE_TEXT_FLAG
             tvBack.setOnClickListener {
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intent)
+//                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+//                startActivity(intent)
                 finish()
             }
 
@@ -149,9 +149,9 @@ class LoginActivity : AppCompatActivity() {
             Log.d("로그인한 유저의 전체이름", displayName)
             Log.d("로그인한 유저의 프로필 사진의 주소", photoUrl)
 
-            val nextIntent = Intent(this@LoginActivity, MainActivity::class.java)
-            nextIntent.putExtra("user", account)
-            startActivity(nextIntent)
+//            val nextIntent = Intent(this@LoginActivity, MainActivity::class.java)
+//            nextIntent.putExtra("user", account)
+//            startActivity(nextIntent)
             finish()
 
         } catch (e: ApiException) {
@@ -171,9 +171,9 @@ class LoginActivity : AppCompatActivity() {
     fun moveMainPage(user: FirebaseUser?){
         // 파이어베이스 유저 상태가 있을 경우에만 넘어감
         if(user != null){
-            val nextIntent = Intent(this@LoginActivity, MainActivity::class.java)
-            nextIntent.putExtra("user", user)
-            startActivity(nextIntent)
+//            val nextIntent = Intent(this@LoginActivity, MainActivity::class.java)
+//            nextIntent.putExtra("user", user)
+//            startActivity(nextIntent)
             finish()
         }
     }

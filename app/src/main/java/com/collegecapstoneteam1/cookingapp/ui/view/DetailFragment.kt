@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,6 +17,7 @@ import com.collegecapstoneteam1.cookingapp.ui.adapter.RecipeDetailAdapter
 import com.collegecapstoneteam1.cookingapp.ui.viewmodel.MainViewModel
 import com.collegecapstoneteam1.cookingapp.util.collectLatestStateFlow
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 
 class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
@@ -26,7 +28,10 @@ class DetailFragment : Fragment() {
     private lateinit var viewModel:MainViewModel
     private lateinit var detailAdapter: RecipeDetailAdapter
 
-    private var state = false
+    private var saved_state = false
+    private var favorite_state = false
+
+    lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +39,7 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
+        auth = FirebaseAuth.getInstance()
         return binding.root
     }
 
@@ -54,12 +60,19 @@ class DetailFragment : Fragment() {
         detailAdapter.submitList(recipe.getDetailList())
 
         collectLatestStateFlow(viewModel.savedRecipes){
-            state = it.contains(recipe)
-            binding.ivRecipeSaved.isActivated = state
+            saved_state = it.contains(recipe)
+            binding.ivRecipeSaved.isActivated = saved_state
+        }
+
+
+        auth.currentUser?.let { viewModel.getUsersFavorite(it.uid) }
+        viewModel.usersFavorite.observe(viewLifecycleOwner){
+            favorite_state = viewModel.isInFavoite(recipe.rcpSeq)
+            binding.ivRecipeFavorite.isActivated = favorite_state
         }
 
         binding.ivRecipeSaved.setOnClickListener{
-            if(state) {
+            if(saved_state) {
                 viewModel.deleteRecipe(recipe)
                 Snackbar.make(view, "Recipe has deleted", Snackbar.LENGTH_SHORT).apply {
                     setAction("Undo") {
@@ -74,6 +87,19 @@ class DetailFragment : Fragment() {
                     }
                 }.show()
             }
+        }
+
+        binding.ivRecipeFavorite.setOnClickListener {
+            if (auth.currentUser == null) {
+                Toast.makeText(context, "로그인이 되어있지 않습니다 로그인을 해주세요", Toast.LENGTH_SHORT).show()
+            }else{
+                if (favorite_state){
+                    viewModel.unFavoriteRecipePost(auth.currentUser!!.uid,recipe.rcpSeq)
+                }else{
+                    viewModel.favoriteRecipePost(auth.currentUser!!.uid,recipe.rcpSeq)
+                }
+            }
+
         }
     }
 

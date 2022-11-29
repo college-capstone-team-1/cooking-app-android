@@ -22,7 +22,7 @@ abstract class RecipeDatabase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 RecipeDatabase::class.java,
-                "favorite-recipes-test"
+                "Saved-recipes-test"
             ).build()
 
         fun getInstance(context: Context): RecipeDatabase =

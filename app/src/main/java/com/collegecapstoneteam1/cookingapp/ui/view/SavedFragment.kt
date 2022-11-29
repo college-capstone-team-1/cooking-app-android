@@ -1,7 +1,6 @@
 package com.collegecapstoneteam1.cookingapp.ui.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,16 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.collegecapstoneteam1.cookingapp.R
 import com.collegecapstoneteam1.cookingapp.data.model.Recipe
-import com.collegecapstoneteam1.cookingapp.databinding.FragmentFavoriteBinding
-import com.collegecapstoneteam1.cookingapp.ui.adapter.RecipeAdapter
+import com.collegecapstoneteam1.cookingapp.databinding.FragmentSavedBinding
 import com.collegecapstoneteam1.cookingapp.ui.adapter.RecipeRoomAdapter
 import com.collegecapstoneteam1.cookingapp.ui.viewmodel.MainViewModel
 import com.collegecapstoneteam1.cookingapp.util.collectLatestStateFlow
 import com.google.android.material.snackbar.Snackbar
 
 
-class FavoriteFragment : Fragment() {
-    private var _binding: FragmentFavoriteBinding? = null
+class SavedFragment : Fragment() {
+    private var _binding: FragmentSavedBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: MainViewModel
     private lateinit var recipeAdapter: RecipeRoomAdapter
@@ -32,7 +30,7 @@ class FavoriteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_saved, container, false)
         return binding.root
     }
 
@@ -42,7 +40,7 @@ class FavoriteFragment : Fragment() {
         setupRecyclerView()
         setupTouchHelper(view)
         
-        collectLatestStateFlow(viewModel.favoriteRecipes){
+        collectLatestStateFlow(viewModel.savedRecipes){
             recipeAdapter.submitList(it)
         }
     }
@@ -61,7 +59,7 @@ class FavoriteFragment : Fragment() {
 
             recipeAdapter.setOnItemClickListener( object :RecipeRoomAdapter.OnItemClickListener{
                 override fun onItemClick(v: View, recipe: Recipe, pos: Int) {
-                    val action = FavoriteFragmentDirections.actionFragmentFavoriteToFragmentDetail(recipe)
+                    val action = SavedFragmentDirections.actionFragmentSavedToFragmentDetail(recipe)
                     findNavController().navigate(action)
                 }
             })
@@ -104,6 +102,6 @@ class FavoriteFragment : Fragment() {
     }
 
     companion object{
-        private const val TAG = "FavoriteFragment"
+        private const val TAG = "SavedFragment"
     }
 }

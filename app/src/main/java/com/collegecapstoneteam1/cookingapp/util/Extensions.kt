@@ -4,7 +4,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.collegecapstoneteam1.cookingapp.ui.view.DetailFragment
-import com.collegecapstoneteam1.cookingapp.ui.view.FavoriteFragment
+import com.collegecapstoneteam1.cookingapp.ui.view.SavedFragment
 import com.collegecapstoneteam1.cookingapp.ui.view.SearchFragment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -18,7 +18,7 @@ fun <T> SearchFragment.collectLatestStateFlow(flow: Flow<T>, collect: suspend (T
     }
 }
 
-fun <T> FavoriteFragment.collectLatestStateFlow(flow: Flow<T>, collect: suspend (T) -> Unit){
+fun <T> SavedFragment.collectLatestStateFlow(flow: Flow<T>, collect: suspend (T) -> Unit){
     viewLifecycleOwner.lifecycleScope.launch {
         viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
             flow.collectLatest(collect)

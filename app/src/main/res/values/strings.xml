@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Recipes</string>
     <string name="search">Search Recipes</string>
-    <string name="favorite">Favorite Recipes</string>
+    <string name="saved">Saved Recipes</string>
     <string name="settings">Settings</string>
     <string name="detail">Detail</string>
     <string name="home">Home</string>

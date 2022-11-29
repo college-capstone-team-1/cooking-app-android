@@ -32,8 +32,6 @@ class SettingsFragment : Fragment() {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_setting, container, false)
 
         auth = FirebaseAuth.getInstance()
-        binding.loginStatus.text = auth.currentUser?.email
-
 
         binding.signInSignUp.setOnClickListener {
            fireLogin()
@@ -52,6 +50,7 @@ class SettingsFragment : Fragment() {
         } else if (auth.currentUser?.email == null){
             binding.signInSignUp.text = "로그인 / 회원가입"
         }
+        binding.loginStatus.text = auth.currentUser?.email
         super.onResume()
     }
 

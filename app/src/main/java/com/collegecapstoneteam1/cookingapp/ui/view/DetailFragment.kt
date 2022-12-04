@@ -1,6 +1,7 @@
 package com.collegecapstoneteam1.cookingapp.ui.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -69,6 +70,7 @@ class DetailFragment : Fragment() {
 
 
         auth.currentUser?.let {
+            Log.d(TAG, "onViewCreated: uid, ${it.uid}")
             if (activity.checkNetWork()) viewModel.getUsersFavorite(it.uid)
         }
         viewModel.usersFavorite.observe(viewLifecycleOwner) {
@@ -102,10 +104,13 @@ class DetailFragment : Fragment() {
             } else {
                 if (favorite_state) {
                     viewModel.unFavoriteRecipePost(auth.currentUser!!.uid, recipe.rcpSeq)
+                    favorite_state = false
                 } else {
                     viewModel.favoriteRecipePost(auth.currentUser!!.uid, recipe.rcpSeq)
+                    favorite_state = true
                 }
             }
+            binding.ivRecipeFavorite.isActivated = favorite_state
 
         }
     }

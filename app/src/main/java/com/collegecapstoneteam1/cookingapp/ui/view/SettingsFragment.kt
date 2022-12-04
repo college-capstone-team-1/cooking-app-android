@@ -64,6 +64,8 @@ class SettingsFragment : Fragment() {
             auth.signOut()
             binding.loginStatus.text = auth.currentUser?.email
 
+            val activity =  activity as MainActivity
+            activity.viewModel.setUserFavoriteClear()
         }
     }
 

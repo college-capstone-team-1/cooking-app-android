@@ -52,6 +52,8 @@ interface RecipeRepository {
         recipeSeq : Int
     ): Response<FavoriteResponse>
 
+    suspend fun getFavoriteBest():Response<SearchResponse>
+
     // Room
     suspend fun insertRecipe(recipe: Recipe)
 

@@ -70,6 +70,10 @@ class RecipeRepositoryImpl(private val db: RecipeDatabase) : RecipeRepository {
         return api.unFavoriteRecipePost(uid, recipeSeq)
     }
 
+    override suspend fun getFavoriteBest(): Response<SearchResponse> {
+        return api.getFavoriteBest()
+    }
+
     // Room
     override suspend fun insertRecipe(recipe: Recipe) {
         db.recipeDao().insertRecipe(recipe)

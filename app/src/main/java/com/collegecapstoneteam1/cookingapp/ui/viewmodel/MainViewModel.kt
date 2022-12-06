@@ -83,6 +83,10 @@ class MainViewModel(
     private val _usersFavorite = MutableLiveData<FavoriteResponse>()
     val usersFavorite: LiveData<FavoriteResponse> get() = _usersFavorite
 
+    fun setUserFavoriteClear(){
+        _usersFavorite.postValue(FavoriteResponse(0, listOf()))
+    }
+
     fun getUsersFavorite(uid: String) = viewModelScope.launch(Dispatchers.IO) {
         val response = recipeRepository.getUsersFavorite(uid)
         if (response.isSuccessful) {
@@ -104,8 +108,9 @@ class MainViewModel(
         val response = recipeRepository.favoriteRecipePost(uid, recipeSeq)
         if (response.isSuccessful){
             response.body()?.let {
+                _usersFavorite.postValue(it)
                 Log.d(TAG, "favoriteRecipePost: isSuccess ${it}")
-                getUsersFavorite(uid)
+                //getUsersFavorite(uid)
             }
         }else {
             Log.d(TAG, "favoriteRecipePost: response.isNotSuccessful")

@@ -58,6 +58,20 @@ class MainViewModel(
         }
     }
 
+    fun getFavoriteBest(
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response =
+            recipeRepository.getFavoriteBest()
+        if (response.isSuccessful) {
+            response.body()?.let { body ->
+                _searchResult.postValue(body)
+            }
+        } else {
+            Log.d(TAG, "searchRecipes: response.isNotSuccessful")
+            Log.d(TAG, response.message())
+        }
+    }
+
     private val _serchPagingResult = MutableStateFlow<PagingData<Recipe>>(PagingData.empty())
     val searchPagingResult: StateFlow<PagingData<Recipe>> = _serchPagingResult.asStateFlow()
 

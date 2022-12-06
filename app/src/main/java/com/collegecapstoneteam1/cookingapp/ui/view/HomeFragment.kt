@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
 
-        viewModel.searchRecipesList()
+        viewModel.getFavoriteBest()
 
         setupRecyclerView()
 

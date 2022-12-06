@@ -53,6 +53,9 @@ interface RecipeSearchApi {
         @Query("recipeSeq") recipeSeq : Int
     ): Response<FavoriteResponse>
 
+    //Best
+    @GET("/api/v1/recipes/rank")
+    suspend fun getFavoriteBest():Response<SearchResponse>
 
 
 

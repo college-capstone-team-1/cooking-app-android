@@ -14,6 +14,7 @@ import com.collegecapstoneteam1.cookingapp.data.model.Recipe
 import com.collegecapstoneteam1.cookingapp.data.model.SearchResponse
 import com.collegecapstoneteam1.cookingapp.data.repository.RecipeRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import retrofit2.await
@@ -37,6 +38,82 @@ class MainViewModel(
         if (response.isSuccessful) {
             response.body()?.let { body ->
                 _searchResult.postValue(body)
+            }
+        } else {
+            Log.d(TAG, "searchRecipes: response.isNotSuccessful")
+            Log.d(TAG, response.message())
+        }
+    }
+
+    // 홈에서 사용
+    private val _searchResult1 = MutableLiveData<SearchResponse>()
+    val searchResult1: LiveData<SearchResponse> get() = _searchResult1
+    fun searchRecipes1(detail:String) = viewModelScope.launch(Dispatchers.IO) {
+        val response =
+            recipeRepository.searchRecipesList(1, 8, "", detail, "","")
+        if (response.isSuccessful) {
+            response.body()?.let { body ->
+                _searchResult1.postValue(body)
+            }
+        } else {
+            Log.d(TAG, "searchRecipes: response.isNotSuccessful")
+            Log.d(TAG, response.message())
+        }
+    }
+
+    private val _searchResult2 = MutableLiveData<SearchResponse>()
+    val searchResult2: LiveData<SearchResponse> get() = _searchResult2
+    fun searchRecipes2(detail:String) = viewModelScope.launch(Dispatchers.IO) {
+        val response =
+            recipeRepository.searchRecipesList(1, 8, "", detail, "","")
+        if (response.isSuccessful) {
+            response.body()?.let { body ->
+                _searchResult2.postValue(body)
+            }
+        } else {
+            Log.d(TAG, "searchRecipes: response.isNotSuccessful")
+            Log.d(TAG, response.message())
+        }
+    }
+
+    private val _searchResult3 = MutableLiveData<SearchResponse>()
+    val searchResult3: LiveData<SearchResponse> get() = _searchResult3
+    fun searchRecipes3(detail:String) = viewModelScope.launch(Dispatchers.IO) {
+        val response =
+            recipeRepository.searchRecipesList(1, 8, "", detail, "","")
+        if (response.isSuccessful) {
+            response.body()?.let { body ->
+                _searchResult3.postValue(body)
+            }
+        } else {
+            Log.d(TAG, "searchRecipes: response.isNotSuccessful")
+            Log.d(TAG, response.message())
+        }
+    }
+
+    private val _searchResult4 = MutableLiveData<SearchResponse>()
+    val searchResult4: LiveData<SearchResponse> get() = _searchResult4
+    fun searchRecipes4(detail:String) = viewModelScope.launch(Dispatchers.IO) {
+        val response =
+            recipeRepository.searchRecipesList(1, 8, "", detail, "","")
+        if (response.isSuccessful) {
+            response.body()?.let { body ->
+                _searchResult4.postValue(body)
+            }
+        } else {
+            Log.d(TAG, "searchRecipes: response.isNotSuccessful")
+            Log.d(TAG, response.message())
+        }
+    }
+
+    private val _searchResult5 = MutableLiveData<SearchResponse>()
+    val searchResult5: LiveData<SearchResponse> get() = _searchResult5
+    fun searchRecipes5(detail:String) = viewModelScope.launch(Dispatchers.IO) {
+        val response =
+            recipeRepository.searchRecipesList(1, 8, "", detail, "","")
+        if (response.isSuccessful) {
+            response.body()?.let { body ->
+                _searchResult5.postValue(body)
             }
         } else {
             Log.d(TAG, "searchRecipes: response.isNotSuccessful")
@@ -72,6 +149,8 @@ class MainViewModel(
         }
     }
 
+
+
     private val _serchPagingResult = MutableStateFlow<PagingData<Recipe>>(PagingData.empty())
     val searchPagingResult: StateFlow<PagingData<Recipe>> = _serchPagingResult.asStateFlow()
 
@@ -97,7 +176,7 @@ class MainViewModel(
     private val _usersFavorite = MutableLiveData<FavoriteResponse>()
     val usersFavorite: LiveData<FavoriteResponse> get() = _usersFavorite
 
-    fun setUserFavoriteClear(){
+    fun setUserFavoriteClear() {
         _usersFavorite.postValue(FavoriteResponse(0, listOf()))
     }
 
@@ -120,13 +199,13 @@ class MainViewModel(
 
     fun favoriteRecipePost(uid: String, recipeSeq: Int) = viewModelScope.launch(Dispatchers.IO) {
         val response = recipeRepository.favoriteRecipePost(uid, recipeSeq)
-        if (response.isSuccessful){
+        if (response.isSuccessful) {
             response.body()?.let {
                 _usersFavorite.postValue(it)
                 Log.d(TAG, "favoriteRecipePost: isSuccess ${it}")
                 //getUsersFavorite(uid)
             }
-        }else {
+        } else {
             Log.d(TAG, "favoriteRecipePost: response.isNotSuccessful")
             Log.d(TAG, response.message())
         }
@@ -135,12 +214,12 @@ class MainViewModel(
 
     fun unFavoriteRecipePost(uid: String, recipeSeq: Int) = viewModelScope.launch(Dispatchers.IO) {
         val response = recipeRepository.unFavoriteRecipePost(uid, recipeSeq)
-        if (response.isSuccessful){
+        if (response.isSuccessful) {
             response.body()?.let {
                 _usersFavorite.postValue(it)
                 Log.d(TAG, "unFavoriteRecipePost: isSuccess ${it}")
             }
-        }else {
+        } else {
             Log.d(TAG, "unFavoriteRecipePost: response.isNotSuccessful")
             Log.d(TAG, response.message())
         }

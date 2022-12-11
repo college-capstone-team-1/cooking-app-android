@@ -17,6 +17,7 @@ import com.collegecapstoneteam1.cookingapp.databinding.ActivityMainBinding
 import com.collegecapstoneteam1.cookingapp.ui.viewmodel.MainViewModel
 import com.collegecapstoneteam1.cookingapp.ui.viewmodel.MainViewModelProviderFactory
 import com.collegecapstoneteam1.cookingapp.util.NetworkManager
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+    val list = mutableListOf<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +52,19 @@ class MainActivity : AppCompatActivity() {
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
 
+        val random = Random()
+
+        while (list.size < 5) {
+            val randomNumber = random.nextInt(20) + 1
+            if (list.contains(randomNumber)) {
+                continue
+            }
+            list.add(randomNumber)
+        }
+
     }
+
+
 
     private fun setupJetpackNavigation() {
         val host = supportFragmentManager

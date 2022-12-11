@@ -1,5 +1,6 @@
 package com.collegecapstoneteam1.cookingapp.ui.view
 
+import android.animation.LayoutTransition
 import android.os.Bundle
 import android.text.Editable
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
@@ -37,10 +39,13 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    var detail_search_activated = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
         setupRecyclerView()
+
 //        searchCooks()
 
 
@@ -53,19 +58,31 @@ class SearchFragment : Fragment() {
             viewModel.searchCookingsPaging(rcpNm)
         }
 
+
+
         //detail Search
+        binding.btnUp.isActivated = detail_search_activated
+
+        if (binding.btnUp.isActivated){
+            binding.detailForm.setHeightWrap()
+        }else{
+            binding.detailForm.setHeight(0)
+        }
+
+        (binding.detailForm as ViewGroup).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        (binding.rvForm as ViewGroup).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+
         binding.btnUp.setOnClickListener {
             if (it.isActivated){
-                var layoutParams = binding.detailForm.layoutParams
-                layoutParams.height = LayoutParams.WRAP_CONTENT
-                binding.detailForm.layoutParams = layoutParams
+                binding.detailForm.setHeight(0)
             }else{
-                var layoutParams = binding.detailForm.layoutParams
-                layoutParams.height = 0
-                binding.detailForm.layoutParams = layoutParams
+                binding.detailForm.setHeightWrap()
             }
             it.isActivated = !it.isActivated
+            detail_search_activated = it.isActivated
         }
+
+
 
         val sort_list1 = listOf("모두","국&찌개","기타","반찬","밥","일품","후식")
         val adapter_spinner1 =  ArrayAdapter(context as MainActivity, R.layout.itme_dropdown, sort_list1)
@@ -119,6 +136,20 @@ class SearchFragment : Fragment() {
 
 
         }
+    }
+
+    fun LinearLayout.setHeight(num: Int) {
+        var layoutParam = this.layoutParams
+        layoutParam.height = num
+        //(this as ViewGroup).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        this.layoutParams = layoutParam
+    }
+
+    fun LinearLayout.setHeightWrap() {
+        var layoutParam = this.layoutParams
+        layoutParam.height = LayoutParams.WRAP_CONTENT
+        //(this as ViewGroup).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        this.layoutParams = layoutParam
     }
 
 

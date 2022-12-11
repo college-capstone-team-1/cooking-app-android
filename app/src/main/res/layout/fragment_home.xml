@@ -11,20 +11,21 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         tools:context=".ui.view.HomeFragment">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/tway_air"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/tway_air"
                 android:text="화제의 레시피"
                 android:textColor="@color/black"
-                android:textSize="25dp" />
+                android:textSize="20dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -35,10 +36,102 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never"
+                android:layout_height="220dp"
                 android:clipChildren="false"
-                android:clipToPadding="false"/>
+                android:clipToPadding="false"
+                android:overScrollMode="never" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/tway_air"
+                android:text="이런 레시피는 어떠신가요?"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_margin="10dp"
+                android:background="@color/black" />
+            <TextView
+            android:id="@+id/tv_list1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/tway_air"
+            android:text="*** 로 만든레시피"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list1"
+                android:layout_width="match_parent"
+                android:layout_height="238dp"/>
+            <TextView
+                android:id="@+id/tv_list2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/tway_air"
+                android:text="*** 로 만든레시피"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list2"
+                android:layout_width="match_parent"
+                android:layout_height="238dp"/>
+            <TextView
+                android:id="@+id/tv_list3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/tway_air"
+                android:text="*** 로 만든레시피"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list3"
+                android:layout_width="match_parent"
+                android:layout_height="238dp"/>
+            <TextView
+                android:id="@+id/tv_list4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/tway_air"
+                android:text="*** 로 만든레시피"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list4"
+                android:layout_width="match_parent"
+                android:layout_height="238dp"/>
+            <TextView
+                android:id="@+id/tv_list5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/tway_air"
+                android:text="*** 로 만든레시피"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list5"
+                android:layout_width="match_parent"
+                android:layout_height="238dp"
+                android:layout_marginBottom="30dp"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

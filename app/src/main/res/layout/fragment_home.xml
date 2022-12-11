@@ -15,6 +15,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/tway_air"
+                android:layout_marginLeft="20dp"
+                android:text="화제의 레시피"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_margin="10dp"
+                android:background="@color/black" />
+
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
@@ -22,20 +39,7 @@
                 android:overScrollMode="never"
                 android:clipChildren="false"
                 android:clipToPadding="false"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/tway_air"
-                android:padding="10dp"
-                android:text="화제의 레시피"
-                android:textColor="@color/black"
-                android:textSize="30dp"
-                android:textStyle="bold"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_margin="10dp"
-                android:background="@color/black"/>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

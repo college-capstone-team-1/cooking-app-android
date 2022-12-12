@@ -24,6 +24,7 @@ interface RecipeSearchApi {
         @Query("detail") detail: String = "",//재료 상세
         @Query("part") part: String = "",//음식 구분
         @Query("way") way: String = "",//조리방식
+        @Query("order") sort: String ="d"//정렬기준
     ): Response<SearchResponse>
 
 

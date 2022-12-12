@@ -92,6 +92,10 @@ class SearchFragment : Fragment() {
         val adapter_spinner2 =  ArrayAdapter(context as MainActivity, R.layout.itme_dropdown, sort_list2)
         binding.spType2.setAdapter(adapter_spinner2)
 
+        val sort_list3 = listOf("없음","인기도순")
+        val adapter_spinner3 =  ArrayAdapter(context as MainActivity, R.layout.itme_dropdown, sort_list3)
+        binding.spSort.setAdapter(adapter_spinner3)
+
         binding.btnDetailSearch.setOnClickListener {
             val pos1 = binding.spType1.selectedItemPosition
             val pos2 = binding.spType2.selectedItemPosition
@@ -100,6 +104,7 @@ class SearchFragment : Fragment() {
                 detail = binding.etDetail.text.toString(),
                 part = if(pos1 == 0) "" else sort_list1[pos1],
                 way = if(pos2 == 0) "" else sort_list2[pos2],
+                sort = if (binding.spSort.selectedItemPosition == 0) "d" else "f"
             )
         }
 

@@ -34,7 +34,7 @@ class MainViewModel(
         way: String = "",//조리방식
     ) = viewModelScope.launch(Dispatchers.IO) {
         val response =
-            recipeRepository.searchRecipesList(page, size, name, detail, part, way)
+            recipeRepository.searchRecipesList(page, size, name, detail, part, way,"d")
         if (response.isSuccessful) {
             response.body()?.let { body ->
                 _searchResult.postValue(body)
@@ -50,7 +50,7 @@ class MainViewModel(
     val searchResult1: LiveData<SearchResponse> get() = _searchResult1
     fun searchRecipes1(detail:String) = viewModelScope.launch(Dispatchers.IO) {
         val response =
-            recipeRepository.searchRecipesList(1, 8, "", detail, "","")
+            recipeRepository.searchRecipesList(1, 8, "", detail, "","","f")
         if (response.isSuccessful) {
             response.body()?.let { body ->
                 _searchResult1.postValue(body)
@@ -65,7 +65,7 @@ class MainViewModel(
     val searchResult2: LiveData<SearchResponse> get() = _searchResult2
     fun searchRecipes2(detail:String) = viewModelScope.launch(Dispatchers.IO) {
         val response =
-            recipeRepository.searchRecipesList(1, 8, "", detail, "","")
+            recipeRepository.searchRecipesList(1, 8, "", detail, "","","f")
         if (response.isSuccessful) {
             response.body()?.let { body ->
                 _searchResult2.postValue(body)
@@ -80,7 +80,7 @@ class MainViewModel(
     val searchResult3: LiveData<SearchResponse> get() = _searchResult3
     fun searchRecipes3(detail:String) = viewModelScope.launch(Dispatchers.IO) {
         val response =
-            recipeRepository.searchRecipesList(1, 8, "", detail, "","")
+            recipeRepository.searchRecipesList(1, 8, "", detail, "","","f")
         if (response.isSuccessful) {
             response.body()?.let { body ->
                 _searchResult3.postValue(body)
@@ -95,7 +95,7 @@ class MainViewModel(
     val searchResult4: LiveData<SearchResponse> get() = _searchResult4
     fun searchRecipes4(detail:String) = viewModelScope.launch(Dispatchers.IO) {
         val response =
-            recipeRepository.searchRecipesList(1, 8, "", detail, "","")
+            recipeRepository.searchRecipesList(1, 8, "", detail, "","","f")
         if (response.isSuccessful) {
             response.body()?.let { body ->
                 _searchResult4.postValue(body)
@@ -110,7 +110,7 @@ class MainViewModel(
     val searchResult5: LiveData<SearchResponse> get() = _searchResult5
     fun searchRecipes5(detail:String) = viewModelScope.launch(Dispatchers.IO) {
         val response =
-            recipeRepository.searchRecipesList(1, 8, "", detail, "","")
+            recipeRepository.searchRecipesList(1, 8, "", detail, "","","f")
         if (response.isSuccessful) {
             response.body()?.let { body ->
                 _searchResult5.postValue(body)
@@ -161,9 +161,10 @@ class MainViewModel(
         detail: String = "",//재료 상세
         part: String = "",//음식 구분
         way: String = "",//조리방식
+        sort: String = "d",//조리방식
     ) {
         viewModelScope.launch {
-            recipeRepository.searchRecipePaging(name, detail, part, way)
+            recipeRepository.searchRecipePaging(name, detail, part, way,sort)
                 .cachedIn(viewModelScope)
                 .collect {
                     _serchPagingResult.value = it

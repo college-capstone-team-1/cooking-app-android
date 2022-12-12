@@ -24,6 +24,7 @@ interface RecipeRepository {
         detail: String,//재료 상세
         part: String,//음식 구분
         way: String,//조리방식
+        sort: String
     ): Response<SearchResponse>
 
     suspend fun searchRecipe(
@@ -35,6 +36,7 @@ interface RecipeRepository {
         detail: String = "",//재료 상세
         part: String = "",//음식 구분
         way: String = "",//조리방식
+        sort: String = "d"
     ): Flow<PagingData<Recipe>>
 
     //Favorite Api

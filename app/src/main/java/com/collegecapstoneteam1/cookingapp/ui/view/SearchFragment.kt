@@ -1,12 +1,15 @@
 package com.collegecapstoneteam1.cookingapp.ui.view
 
+import android.animation.LayoutTransition
 import android.os.Bundle
 import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ArrayAdapter
+import android.widget.LinearLayout
+import android.widget.LinearLayout.LayoutParams
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
@@ -36,10 +39,13 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    var detail_search_activated = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
         setupRecyclerView()
+
 //        searchCooks()
 
 
@@ -47,10 +53,59 @@ class SearchFragment : Fragment() {
             recipeAdapter.submitData(it)
         }
 
-        //플로팅 버튼을 누르면 검색
         binding.btnSearch.setOnClickListener {
             var rcpNm = binding.etSearch.text.toString()
             viewModel.searchCookingsPaging(rcpNm)
+        }
+
+
+
+        //detail Search
+        binding.btnUp.isActivated = detail_search_activated
+
+        if (binding.btnUp.isActivated){
+            binding.detailForm.setHeightWrap()
+        }else{
+            binding.detailForm.setHeight(0)
+        }
+
+        (binding.detailForm as ViewGroup).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        (binding.rvForm as ViewGroup).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+
+        binding.btnUp.setOnClickListener {
+            if (it.isActivated){
+                binding.detailForm.setHeight(0)
+            }else{
+                binding.detailForm.setHeightWrap()
+            }
+            it.isActivated = !it.isActivated
+            detail_search_activated = it.isActivated
+        }
+
+
+
+        val sort_list1 = listOf("모두","국&찌개","기타","반찬","밥","일품","후식")
+        val adapter_spinner1 =  ArrayAdapter(context as MainActivity, R.layout.itme_dropdown, sort_list1)
+        binding.spType1.setAdapter(adapter_spinner1)
+
+        val sort_list2 = listOf("모두","굽기","기타","끓이기","볶기","찌기","튀기기")
+        val adapter_spinner2 =  ArrayAdapter(context as MainActivity, R.layout.itme_dropdown, sort_list2)
+        binding.spType2.setAdapter(adapter_spinner2)
+
+        val sort_list3 = listOf("없음","인기도순")
+        val adapter_spinner3 =  ArrayAdapter(context as MainActivity, R.layout.itme_dropdown, sort_list3)
+        binding.spSort.setAdapter(adapter_spinner3)
+
+        binding.btnDetailSearch.setOnClickListener {
+            val pos1 = binding.spType1.selectedItemPosition
+            val pos2 = binding.spType2.selectedItemPosition
+            viewModel.searchCookingsPaging(
+                name = binding.etName.text.toString(),
+                detail = binding.etDetail.text.toString(),
+                part = if(pos1 == 0) "" else sort_list1[pos1],
+                way = if(pos2 == 0) "" else sort_list2[pos2],
+                sort = if (binding.spSort.selectedItemPosition == 0) "d" else "f"
+            )
         }
 
 //        viewModel.searchResult.observe(viewLifecycleOwner) { response ->
@@ -86,6 +141,20 @@ class SearchFragment : Fragment() {
 
 
         }
+    }
+
+    fun LinearLayout.setHeight(num: Int) {
+        var layoutParam = this.layoutParams
+        layoutParam.height = num
+        //(this as ViewGroup).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        this.layoutParams = layoutParam
+    }
+
+    fun LinearLayout.setHeightWrap() {
+        var layoutParam = this.layoutParams
+        layoutParam.height = LayoutParams.WRAP_CONTENT
+        //(this as ViewGroup).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        this.layoutParams = layoutParam
     }
 
 

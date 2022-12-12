@@ -31,8 +31,9 @@ class RecipeRepositoryImpl(private val db: RecipeDatabase) : RecipeRepository {
         detail: String,
         part: String,
         way: String,
+        sort: String
     ): Response<SearchResponse> {
-        return api.searchRecipesList(page, size, name, detail, part, way)
+        return api.searchRecipesList(page, size, name, detail, part, way,sort)
     }
 
     override suspend fun searchRecipe(seq: Int): Response<SearchResponse> {
@@ -45,8 +46,9 @@ class RecipeRepositoryImpl(private val db: RecipeDatabase) : RecipeRepository {
         detail: String,
         part: String,
         way: String,
+        sort: String
     ): Flow<PagingData<Recipe>> {
-        val pagingSourceFactory = { RecipePagingSource(name, detail, part, way) }
+        val pagingSourceFactory = { RecipePagingSource(name, detail, part, way,sort) }
 
         return Pager(
             config = PagingConfig(

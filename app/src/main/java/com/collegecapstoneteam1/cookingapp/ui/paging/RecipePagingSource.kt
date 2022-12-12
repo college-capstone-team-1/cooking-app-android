@@ -13,7 +13,8 @@ class RecipePagingSource(
     private val detail: String = "",
     private val part: String = "",
     private val way: String = "",
-) : PagingSource<Int, Recipe>() {
+    private val sort: String = "d",
+    ) : PagingSource<Int, Recipe>() {
     override fun getRefreshKey(state: PagingState<Int, Recipe>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
@@ -25,7 +26,7 @@ class RecipePagingSource(
         return try {
 
             val pageNumber = params.key ?: STARTING_PAGE_INDEX
-            val response = api.searchRecipesList(pageNumber, 5, name, detail, part, way)
+            val response = api.searchRecipesList(pageNumber, 5, name, detail, part, way,sort)
 
             val data = response.body()?.recipes
 
